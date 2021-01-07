@@ -155,23 +155,22 @@ const addTeamMembers = async () => {
     return addMember ? addTeamMembers() : addMember;
 }
 
+function renderHTML() {
+    const render = require("./lib/htmlRenderer");
+    const OUTPUT_DIR = path.resolve(__dirname, "output");
+    const outputPath = path.join(OUTPUT_DIR, "team.html");
+
+    var html = render(finalTeam);
+    {
+        fs.writeFile('./output/team.html', html, function (err) {
+            if (err) console.log(err)
+        })
+    }
+}
+
 const init = async () => {
-    const test = await addTeamMembers();
-    console.log(finalTeam);
+    const test = await addTeamMembers(); 
+    renderHTML();
 };
 
-
 init();
-
-
-
-const render = require("./lib/htmlRenderer");
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-
-var html = render(finalTeam);
-{
-fs.writeFile('./output/team.html', html, function (err) {
-    if (err) console.log(err)
-})
-}
